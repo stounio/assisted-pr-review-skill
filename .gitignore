@@ -1,0 +1,12 @@
+# Allowlist: ignore everything at the root, then re-include only what the skills need.
+/*
+
+!/.gitignore
+!/LICENSE
+!/README.md
+!/skills/
+
+# Inside skills/, ignore OS and editor clutter.
+.DS_Store
+*.swp
+*~
