@@ -1,6 +1,6 @@
 # Review questions by area
 
-Ask the questions of each area the change touches. A change often touches several areas: a new endpoint usually brings API, endpoint, data types and tests.
+Ask the questions of each area the change touches. A change often touches several areas: a new endpoint usually involves the API, endpoint, data types and tests areas.
 
 A nested question is a follow-up: answer it when its parent question's answer is Yes or Partly.
 
@@ -26,10 +26,10 @@ A nested question is a follow-up: answer it when its parent question's answer is
 - Does the implementation introduce a new pattern for a type of work the codebase already does?
 - Are inline comments needed?
   - Should the commented behaviour be covered by a test instead, so the comment can be removed?
-- Does the function have multiple exit points?
+- Does a function have multiple exit points?
 - Does a function name, boolean or condition use a negation?
   - Can it be phrased affirmatively?
-- Does the function contain a guard clause?
+- Does a function contain a guard clause?
   - Should the check move closer to where the data enters the system?
 - Are failures handled, logged and surfaced to the caller consistently with the rest of the codebase?
 
@@ -52,7 +52,7 @@ A nested question is a follow-up: answer it when its parent question's answer is
 
 - Are types and attributes named according to the domain language?
 - Should each attribute be nullable or mandatory?
-- Are nullable attributes defaulted?
+- Do nullable attributes have a default value?
 - Are tiny types used for attributes?
 - Should an attribute's supported values be an enumeration?
 - Is there an existing type suitable to model the data?

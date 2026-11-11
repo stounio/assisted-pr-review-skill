@@ -19,7 +19,7 @@ The reviewer's arguments: `$ARGUMENTS`. The first word is the branch to review; 
    - `git diff origin/HEAD...<branch>` for the diff.
    - `git log --format='%h %s%n%b' origin/HEAD..<branch>` for the commit history.
    - `git show <branch>:<path>` for a file's full content on the branch, when the diff alone lacks context.
-3. Intent: read the PR description and ticket from the sources the reviewer's instructions name, using the tools available to you, then the commit messages. When a named source is out of reach, or the intent is still unclear, ask the reviewer to paste the description.
+3. Intent: read the PR description and the ticket from the sources named in the reviewer's instructions, using the tools available to you, then read the commit messages. When a named source is out of reach, or the intent is still unclear, ask the reviewer to paste the description.
 
 The review reads the branch through git without checking it out, so the reviewer's working tree stays untouched.
 
@@ -42,7 +42,7 @@ Give the reviewer:
    - **Can't tell** when the evidence lives outside your reach (smoke-test results, production traffic, consumer repositories): name what would settle it.
 3. The answers that most deserve the reviewer's attention, ranked by risk, as the suggested next questions.
 
-Done when every question for every present area has an answer with evidence or a named gap.
+Done when every question for every area present has an answer with evidence or a named gap.
 
 ## 4. Drill down
 

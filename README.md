@@ -33,6 +33,8 @@ From a clone of the repository under review, run:
 
 The skill uses only git, so it works wherever the repository is hosted. It reads the branch without checking it out.
 
+Once it is running, refine your questions: "which consumers call the updated endpoint?", "is there already a type for this?".
+
 ### Pointing the agent at more sources
 
 Anything after the branch is passed to the agent as instructions. Use it to name where the PR description and the ticket live, so the agent reads the intent from them instead of relying on commit messages:
@@ -42,8 +44,6 @@ Anything after the branch is passed to the agent as instructions. Use it to name
 ```
 
 The agent reaches those sources with whatever tools it has access to (a CLI or connector for the repository host or tracking application). When it can't reach one, paste the description instead.
-
-Once it is running, refine your questions: "which consumers call the updated endpoint?", "is there already a type for this?".
 
 ### Invocation
 
