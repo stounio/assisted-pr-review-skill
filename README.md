@@ -52,3 +52,16 @@ Automatic invocation is disabled: `disable-model-invocation: true` in `SKILL.md`
 ## Extending the questions
 
 Add questions to `QUESTIONS.md` under the matching area, or add a new area heading. The skill picks them up without other changes.
+
+## Versioning
+
+Releases follow [semantic versioning](https://semver.org). Merging a pull request into `main` publishes a release with the next `vX.Y.Z` tag, bumped by the pull request's label:
+
+| Label | Bump | When |
+| --- | --- | --- |
+| `semver:major` | `v2.0.0` | The way the skill is invoked changes, or an area is removed. |
+| `semver:minor` | `v1.1.0` | New questions or areas. |
+| `semver:patch` | `v1.0.1` | Wording fixes. The default when no label is set. |
+| `semver:none` | none | Changes that do not affect the skill, such as CI. |
+
+To pin a version, check out its tag before installing: `git checkout v1.0.0`.

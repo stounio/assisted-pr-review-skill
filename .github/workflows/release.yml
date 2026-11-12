@@ -1,0 +1,64 @@
+name: Release
+
+# On every merge of a pull request into main, bump the version from the
+# pull request's label and publish a GitHub release with a vX.Y.Z tag.
+#   semver:major  breaking change to how the skill is invoked, or an area removed
+#   semver:minor  new questions or areas
+#   semver:patch  wording fixes (the default when no label is set)
+#   semver:none   no release (CI, repository settings)
+# Direct pushes to main, without a pull request, are not released.
+
+on:
+  push:
+    branches: [main]
+
+permissions: {}
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Tag and release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: read
+    steps:
+      - name: Release the merged pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+
+          pr=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq '[.[] | select(.merged_at != null)] | first // empty')
+          if [ -z "$pr" ]; then
+            echo "No merged pull request for $SHA: nothing to release."
+            exit 0
+          fi
+          number=$(jq -r .number <<<"$pr")
+          labels=$(jq -r '[.labels[].name] | join(",")' <<<"$pr")
+
+          case ",$labels," in
+            *,semver:none,*)  echo "PR #$number is labelled semver:none: nothing to release."; exit 0 ;;
+            *,semver:major,*) bump=major ;;
+            *,semver:minor,*) bump=minor ;;
+            *)                bump=patch ;;
+          esac
+
+          latest=$(gh api "repos/$REPO/git/matching-refs/tags/v" --jq '
+            [.[].ref | ltrimstr("refs/tags/v") | select(test("^[0-9]+\\.[0-9]+\\.[0-9]+$"))]
+            | sort_by(split(".") | map(tonumber)) | last // "0.0.0"')
+          IFS=. read -r major minor patch <<<"$latest"
+          case $bump in
+            major) next="v$((major + 1)).0.0" ;;
+            minor) next="v$major.$((minor + 1)).0" ;;
+            patch) next="v$major.$minor.$((patch + 1))" ;;
+          esac
+
+          echo "PR #$number ($bump): v$latest -> $next"
+          gh release create "$next" --repo "$REPO" --target "$SHA" --title "$next" --generate-notes
