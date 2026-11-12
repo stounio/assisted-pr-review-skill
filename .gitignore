@@ -1,12 +1,15 @@
-# Allowlist: ignore everything at the root, then re-include only what the skills need.
+# Allowlist: ignore everything at the root, then re-include only what the repository needs.
 /*
 
+!/.github/
 !/.gitignore
+!/.markdownlint-cli2.jsonc
 !/LICENSE
 !/README.md
+!/SECURITY.md
 !/skills/
 
-# Inside skills/, ignore OS and editor clutter.
+# Inside included folders, ignore OS and editor clutter.
 .DS_Store
 *.swp
 *~

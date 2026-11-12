@@ -21,13 +21,13 @@ Or copy it into a repository's `.claude/skills/` to share it with that project.
 
 From a clone of the repository under review, run:
 
-```
+```text
 /assisted-pr-review <branch>
 ```
 
 `<branch>` is the branch of the pull request under review. For example:
 
-```
+```text
 /assisted-pr-review feature/new-endpoint
 ```
 
@@ -39,7 +39,7 @@ Once it is running, refine your questions: "which consumers call the updated end
 
 Anything after the branch is passed to the agent as instructions. Use it to name where the PR description and the ticket live, so the agent reads the intent from them instead of relying on commit messages:
 
-```
+```text
 /assisted-pr-review <branch> review the changes introduced in this branch for <repository>. The PR <PR number> on <repository host> contains the description for the change. The ticket <ticket reference> on <tracking application> contains the description for the targeted outcome.
 ```
 
