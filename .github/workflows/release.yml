@@ -45,9 +45,9 @@ jobs:
 
           case ",$labels," in
             *,semver:none,*)  echo "PR #$number is labelled semver:none: nothing to release."; exit 0 ;;
-            *,semver:major,*) bump=major ;;
-            *,semver:minor,*) bump=minor ;;
-            *)                bump=patch ;;
+            *,semver:major,*) bump="major" ;;
+            *,semver:minor,*) bump="minor" ;;
+            *)                bump="patch" ;;
           esac
 
           latest=$(gh api "repos/$REPO/git/matching-refs/tags/v" --jq '
