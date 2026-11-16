@@ -88,4 +88,7 @@ A nested question is a follow-up: answer it when its parent question's answer is
 - Does the change embed business logic not directly related to the frontend?
   - Should that logic move to a backend layer that encapsulates the business function?
 - Is the change to a UI component accessible?
+- Does the UI component use a legacy design system?
+  - Is that because the component belongs to a legacy UI experience?
+  - Where the component appears in a new user experience, can it use the current design system instead?
 - Does the frontend call a backend API through an existing client and handle its errors?
