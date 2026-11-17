@@ -22,7 +22,7 @@ Or copy it into a repository's `.claude/skills/` to share it with that project.
 From a clone of the repository under review, run:
 
 ```text
-/assisted-pr-review <branch>
+/assisted-pr-review <branch> [repository]
 ```
 
 `<branch>` is the branch of the pull request under review. For example:
@@ -31,19 +31,33 @@ From a clone of the repository under review, run:
 /assisted-pr-review feature/new-endpoint
 ```
 
+`[repository]` is optional and names the repository under review, so you can run the skill from a folder holding several clones. It is a path to a local clone, or the name of a folder in the working directory that holds one; `owner/name` resolves by its last segment. For example, from `~/github`:
+
+```text
+/assisted-pr-review feature/new-endpoint my-service
+```
+
+Without it, the skill reviews the repository holding the working directory.
+
 The skill uses only git, so it works wherever the repository is hosted. It reads the branch without checking it out.
 
 Once it is running, refine your questions: "which consumers call the updated endpoint?", "is there already a type for this?".
 
 ### Pointing the agent at more sources
 
-Anything after the branch is passed to the agent as instructions. Use it to name where the PR description and the ticket live, so the agent reads the intent from them instead of relying on commit messages:
+Anything after the branch and the optional repository is passed to the agent as instructions. Use it to name where the PR description and the ticket live, so the agent reads the intent from them instead of relying on commit messages:
 
 ```text
-/assisted-pr-review <branch> review the changes introduced in this branch for <repository>. The PR <PR number> on <repository host> contains the description for the change. The ticket <ticket reference> on <tracking application> contains the description for the targeted outcome.
+/assisted-pr-review <branch> <repository> with PR <pr number> on <repository host> and <ticket reference> on <tracking system>
 ```
 
-The agent reaches those sources with whatever tools it has access to (a CLI or connector for the repository host or tracking application). When it can't reach one, paste the description instead.
+For example:
+
+```text
+/assisted-pr-review optional-repository-argument assisted-pr-review-skill with PR 1573 on github and issue 4 on github
+```
+
+The agent reaches those sources with whatever tools it has access to (a CLI or connector for the repository host or tracking system). When it can't reach one, paste the description instead.
 
 ### Invocation
 

@@ -1,7 +1,7 @@
 ---
 name: assisted-pr-review
 description: Assist a human reviewer through a pull request by answering review questions about the change with evidence from the code.
-argument-hint: <branch> [instructions]
+argument-hint: <branch> [repository] [instructions]
 disable-model-invocation: true
 ---
 
@@ -11,7 +11,11 @@ The reviewer drives; you are the reviewer's instrument. They ask questions about
 
 ## 1. Load the change
 
-The reviewer's arguments: `$ARGUMENTS`. The first word is the branch to review; the rest, when present, are the reviewer's instructions for this review, such as where the PR description and the ticket live. When the arguments are empty, ask the reviewer for the branch. The change is compared against the repository's default branch, `origin/HEAD`.
+The reviewer's arguments: `$ARGUMENTS`. The first word is the branch to review. The second word, when it names a repository, is the repository under review; the rest, when present, are the reviewer's instructions for this review, such as where the PR description and the ticket live. When the arguments are empty, ask the reviewer for the branch.
+
+The second word names a repository when it resolves to a local clone: a path to the clone, or the name of a folder in the working directory that holds one (`owner/name` resolves by its last segment, `name`). A second word that resolves to no clone opens the instructions, unless it has the `owner/name` shape: then ask the reviewer where its clone lives. Without a repository, the repository under review is the one holding the working directory.
+
+Run every git command of the review inside the repository under review, as `git -C <repository> …`. The change is compared against that repository's default branch, `origin/HEAD`.
 
 1. `git fetch` so the branches are current; when the branch exists only on the remote, review `origin/<branch>`.
 2. Read the change:
@@ -23,7 +27,7 @@ The reviewer's arguments: `$ARGUMENTS`. The first word is the branch to review; 
 
 The review reads the branch through git without checking it out, so the reviewer's working tree stays untouched.
 
-Done when you can name every changed file and the outcome the change claims to deliver.
+Done when you can name the repository under review, every changed file and the outcome the change claims to deliver.
 
 ## 2. Map the change to review areas
 
