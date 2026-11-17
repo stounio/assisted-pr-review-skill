@@ -48,10 +48,16 @@ Once it is running, refine your questions: "which consumers call the updated end
 Anything after the branch and the optional repository is passed to the agent as instructions. Use it to name where the PR description and the ticket live, so the agent reads the intent from them instead of relying on commit messages:
 
 ```text
-/assisted-pr-review <branch> [repository] review the changes introduced in this branch for <repository>. The PR <PR number> on <repository host> contains the description for the change. The ticket <ticket reference> on <tracking application> contains the description for the targeted outcome.
+/assisted-pr-review <branch> <repository> with PR <pr number> on <repository host> and <ticket reference> on <tracking system>
 ```
 
-The agent reaches those sources with whatever tools it has access to (a CLI or connector for the repository host or tracking application). When it can't reach one, paste the description instead.
+For example:
+
+```text
+/assisted-pr-review optional-repository-argument assisted-pr-review-skill with PR 1573 on github and issue 4 on github
+```
+
+The agent reaches those sources with whatever tools it has access to (a CLI or connector for the repository host or tracking system). When it can't reach one, paste the description instead.
 
 ### Invocation
 
