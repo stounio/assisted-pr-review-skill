@@ -7,7 +7,7 @@ A nested question is a follow-up: answer it when its parent question's answer is
 ## API (any API)
 
 - Are the changes to the API contract backward compatible?
-- Is the API contract verified with a Pact test between a consumer and a provider?
+- Is the API contract verified with a contract test between a consumer and a provider?
 - Is the documentation in the API specification up to date?
 - Are the types aligned with the ones already in use in the API?
 
